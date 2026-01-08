@@ -1,0 +1,378 @@
+/* ==========================================================================
+   1. VARIABEL & RESET DASAR
+   ========================================================================== */
+:root {
+    --bg-dark: #0f172a;
+    --card-dark: #1e293b;
+    --text-main: #f8fafc;
+    --text-secondary: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent-blue: #38bdf8;
+    --accent-purple: #8b5cf6;
+    --accent-yellow: #facc15;
+    --accent-green: #10b981;
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    overflow-y: scroll; /* Mencegah geser layout saat scrollbar muncul/hilang */
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Inter', -apple-system, system-ui, sans-serif; /* Font utama */
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+    padding-top: 100px;
+}
+
+/* ==========================================================================
+   2. NAVBAR MODERN (FLOATING & ANIMATED)
+   ========================================================================== */
+
+/* State Awal: Transparan Penuh & Luas */
+.navbar {
+    background: transparent !important; /* Transparan total di awal */
+    backdrop-filter: none; /* Tidak ada blur di awal */
+    padding: 20px 0; /* Padding lebih besar agar lega */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Animasi halus */
+    border-bottom: 1px solid transparent; /* Border transparan */
+    z-index: 1100;
+}
+
+/* State Scrolled: Efek Kaca (Glassmorphism) */
+.navbar-scrolled {
+    background: rgba(15, 23, 42, 0.85) !important; /* Warna gelap transparan */
+    backdrop-filter: blur(15px); /* Efek blur kuat */
+    -webkit-backdrop-filter: blur(15px);
+    padding: 12px 0; /* Mengecil saat discroll */
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5); /* Bayangan halus */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Garis tipis */
+}
+
+/* Styling Link Navigasi */
+.nav-link {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    color: var(--text-muted) !important;
+    padding: 0.5rem 0 !important; /* Hapus padding samping untuk animasi garis */
+    margin: 0 1.2rem;
+    position: relative;
+    transition: 0.3s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #fff !important;
+}
+
+/* Animasi Garis Bawah (Underline) yang Menarik */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Garis muncul saat hover atau aktif */
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+}
+
+/* Warna Garis Aktif per Halaman (Opsional, agar sesuai tema) */
+.contact-page .nav-link::after { background: var(--accent-green); }
+.profile-page .nav-link::after { background: var(--accent-purple); }
+
+/* ==========================================================================
+   3. UI COMPONENTS (Cards, Buttons, Badges)
+   ========================================================================== */
+.glass-card {
+    background: var(--card-dark);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.title-gradient {
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+.btn-glow {
+    background: linear-gradient(135deg, var(--accent-blue), #2563eb);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 28px;
+    font-weight: 600;
+    transition: 0.3s all ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-glow:hover {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    transform: translateY(-2px);
+    color: white;
+}
+
+.badge-neon {
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--accent-blue);
+    border: 1px solid var(--accent-blue);
+    padding: 5px 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 30px;
+}
+
+/* ==========================================================================
+   4. PROFIL KHUSUS (profile.php) - DIKEMBALIKAN KARENA HILANG
+   ========================================================================== */
+.profile-frame {
+    padding: 8px;
+    background: linear-gradient(135deg, var(--accent-blue), transparent);
+    border-radius: 35px;
+    display: inline-block;
+}
+
+.profile-img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 30px;
+    border: 5px solid var(--bg-dark);
+}
+
+/* Timeline Thread */
+.interactive-thread-timeline {
+    position: relative;
+    padding-left: 20px;
+}
+
+.thread-item {
+    position: relative;
+    padding-left: 60px;
+    padding-bottom: 70px;
+}
+
+.thread-line {
+    position: absolute;
+    left: 14px;
+    top: 40px;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--accent-blue), transparent);
+    opacity: 0.2;
+}
+
+/* Sembunyikan garis di item terakhir */
+.thread-item:last-child .thread-line {
+    display: none;
+}
+
+.thread-dot {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 30px;
+    height: 30px;
+    background: var(--bg-dark);
+    border: 3px solid var(--accent-blue);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.thread-item:hover .thread-dot {
+    background: var(--accent-blue);
+    transform: scale(1.2);
+}
+
+.thread-item:hover .thread-body {
+    transform: translateX(10px);
+}
+
+.thread-body {
+    transition: 0.3s ease;
+}
+
+.timeline-img-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Visual Diagram SDM -> Teknologi */
+.diagram-wrapper {
+    position: relative;
+    padding: 20px 0;
+}
+
+.diagram-node {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 20px;
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.node-icon { font-size: 2rem; margin-bottom: 10px; color: var(--text-muted); }
+.node-text { font-weight: 700; font-size: 0.85rem; color: var(--text-secondary); }
+.diagram-arrow { font-size: 1.5rem; color: var(--accent-blue); opacity: 0.5; }
+
+/* Highlights Diagram */
+.node-highlight-blue { border-color: var(--accent-blue); box-shadow: 0 0 15px rgba(56, 189, 248, 0.1); }
+.node-highlight-blue .node-icon { color: var(--accent-blue); }
+
+.node-highlight-purple { border-color: var(--accent-purple); box-shadow: 0 0 15px rgba(139, 92, 246, 0.1); }
+.node-highlight-purple .node-icon { color: var(--accent-purple); }
+
+.node-highlight-gold { border-color: var(--accent-yellow); box-shadow: 0 0 15px rgba(250, 204, 21, 0.1); }
+.node-highlight-gold .node-icon { color: var(--accent-yellow); }
+
+/* ==========================================================================
+   5. KONTAK (kontak.php)
+   ========================================================================== */
+.contact-card-v2 {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none !important;
+    transition: 0.3s;
+}
+
+.contact-card-v2:hover {
+    background: rgba(56, 189, 248, 0.08);
+    transform: translateY(-5px);
+}
+
+.icon-logo-container {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
+.logo-png {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Form Styles */
+.form-control-modern {
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 12px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.form-control-modern:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    background: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+}
+
+.wa-premium-card {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 78, 59, 0.2));
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.btn-wa-neon {
+    background: #10b981;
+    color: white;
+    font-weight: bold;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-glow-premium {
+    background: linear-gradient(135deg, var(--accent-blue), #2563eb);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+/* ==========================================================================
+   6. UTILITY & FOOTER
+   ========================================================================== */
+.text-secondary { color: var(--text-secondary) !important; }
+.text-muted { color: var(--text-muted) !important; }
+.italic { font-style: italic; }
+
+footer {
+    border-top: 1px solid var(--glass-border);
+    background: rgba(15, 23, 42, 0.4);
+    padding: 2rem 0;
+    text-align: center;
+}
+
+/* Image Overlay */
+.img-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.img-overlay.active { display: flex; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .thread-item { padding-left: 45px; }
+    .thread-dot { width: 24px; height: 24px; left: 3px; }
+    .diagram-wrapper { flex-direction: column; gap: 20px; }
+    .diagram-arrow { transform: rotate(90deg); }
+    .diagram-node { width: 100%; }
+    .display-4 { font-size: 2.5rem; }
+}
